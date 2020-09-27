@@ -10,6 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 const { type } = require("os");
+const { Console } = require("console");
 
 let teamLog = []
 // Write code to use inquirer to gather information about the development team members,
@@ -38,7 +39,7 @@ function teamQuery() {
                   type: 'list',
                   message: 'What type of role you have?',
                   choices: ['Manager', 'Intern', 'Engineer']
-            },
+            }
       ]).then(answers => {
             teamLog.push(answers)
             console.log(teamLog)
@@ -47,37 +48,41 @@ function teamQuery() {
                         name: 'officeNumber',
                         type: 'input',
                         message: 'What is your office number?'
-                  }).then(answers => {
-
+                  }).then(role => {
+                        console.log(role)
+                        answers.push(role)
+                        teamLog.push(answers)                   
                   })
             }
-            if (answers.role === 'Intern') {
-                  inquirer.prompt({
-                        name: 'school',
-                        type: 'input',
-                        message: 'What is your School Name?'
-                  })
-            }
-            if (answers.role === 'Engineer') {
-                  inquirer.prompt({
-                        name: 'officeNumber',
-                        type: 'input',
-                        message: 'What is your office number?'
-                  })
-            }
+            // if (answers.role === 'Intern') {
+            //       inquirer.prompt({
+            //             name: 'school',
+            //             type: 'input',
+            //             message: 'What is your School Name?'
+            //       })
+            // }
+            // if (answers.role === 'Engineer') {
+            //       inquirer.prompt({
+            //             name: 'officeNumber',
+            //             type: 'input',
+            //             message: 'What is your office number?'
+            //       })
+            // }
       })
 };
 
-function moreTeam() {
-      if (teamLog.length <= 1) {
-            prompt('You need to add another team member');
-            return teamQuery();
-      }
-};
+// function moreTeam() {
+//       if (teamLog.length <= 1) {
+//             prompt('You need to add another team member');
+//             return teamQuery();
+//       }
+// };
 
 teamQuery();
-moreTeam();
+// moreTeam();
 
+render(teamLog)
+fs.writeFile(pathtotheHTML, render(teamLog), utf-8)
 
 
 // After the user has input all employees desired, call the `render` function (required

@@ -7,7 +7,11 @@ class Employee {
             this.role = 'Employee';
       }
 
-      getID() {
+      getName() {
+            return this.name
+      }
+
+      getId() {
             return this.id;
       }
 
