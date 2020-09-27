@@ -16,6 +16,16 @@ let teamLog = []
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 function teamQuery() {
+      moreTeam = () => {
+            if (answers.continue !== true) {
+                  teamQuery()
+            }
+            if (answers.continue === true) {
+                  buildTeam = () => {
+                        const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                  };
+            }
+      }
       inquirer.prompt([
             {
                   name: 'name',
@@ -57,7 +67,8 @@ function teamQuery() {
                         answers.officeNumber = role.officeNumber
                         const manager = new Manager(answers)
                         teamLog.push(manager)
-                        console.log(teamLog)                   
+                        moreTeam(manager)
+                                         
                   })
             }
             if (answers.role === 'Intern') {
@@ -70,7 +81,7 @@ function teamQuery() {
                         answers.school = role.school
                         const intern = new Intern(answers)
                         teamLog.push(intern)
-                        console.log(teamLog)                   
+                        moreTeam(intern)               
                   })
             }
             if (answers.role === 'Engineer') {
@@ -83,23 +94,13 @@ function teamQuery() {
                         answers.gitHub = role.gitHub
                         const engineer = new Engineer(answers)
                         teamLog.push(engineer)
-                        console.log(teamLog)                   
+                        moreTeam(engineer)
+                                         
                   })
             }
             
-      }).then(() => {
-            if (answers.continue !== true) {
-                  teamQuery()
-            }
-            if (answers.continue === true) {
-                  buildTeam = () => {
-                        const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
-                  };
-            }
       });
-
-
-      
+    
 };
 
 teamQuery()
