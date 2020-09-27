@@ -39,10 +39,14 @@ function teamQuery() {
                   type: 'list',
                   message: 'What type of role you have?',
                   choices: ['Manager', 'Intern', 'Engineer']
-            }
+            },
+            {
+                  name: 'continue',
+                  type: 'confirm',
+                  message: 'Are you done?',
+                  }
       ]).then(answers => {
-            teamLog.push(answers)
-            console.log(teamLog)
+            console.log(answers)
             if (answers.role === 'Manager') {
                   inquirer.prompt({
                         name: 'officeNumber',
@@ -50,39 +54,56 @@ function teamQuery() {
                         message: 'What is your office number?'
                   }).then(role => {
                         console.log(role)
-                        answers.push(role)
-                        teamLog.push(answers)                   
+                        answers.officeNumber = role.officeNumber
+                        const manager = new Manager(answers)
+                        teamLog.push(manager)
+                        console.log(teamLog)                   
                   })
             }
-            // if (answers.role === 'Intern') {
-            //       inquirer.prompt({
-            //             name: 'school',
-            //             type: 'input',
-            //             message: 'What is your School Name?'
-            //       })
-            // }
-            // if (answers.role === 'Engineer') {
-            //       inquirer.prompt({
-            //             name: 'officeNumber',
-            //             type: 'input',
-            //             message: 'What is your office number?'
-            //       })
-            // }
-      })
+            if (answers.role === 'Intern') {
+                  inquirer.prompt({
+                        name: 'school',
+                        type: 'input',
+                        message: 'What is your School Name?'
+                  }).then(role => {
+                        console.log(role)
+                        answers.school = role.school
+                        const intern = new Intern(answers)
+                        teamLog.push(intern)
+                        console.log(teamLog)                   
+                  })
+            }
+            if (answers.role === 'Engineer') {
+                  inquirer.prompt({
+                        name: 'gitHub',
+                        type: 'input',
+                        message: 'What is your GitHub Account?'
+                  }).then(role => {
+                        console.log(role)
+                        answers.gitHub = role.gitHub
+                        const engineer = new Engineer(answers)
+                        teamLog.push(engineer)
+                        console.log(teamLog)                   
+                  })
+            }
+            
+      }).then(() => {
+            if (answers.continue !== true) {
+                  teamQuery()
+            }
+            if (answers.continue === true) {
+                  buildTeam = () => {
+                        const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                  };
+            }
+      });
+
+
+      
 };
 
-// function moreTeam() {
-//       if (teamLog.length <= 1) {
-//             prompt('You need to add another team member');
-//             return teamQuery();
-//       }
-// };
+teamQuery()
 
-teamQuery();
-// moreTeam();
-
-render(teamLog)
-fs.writeFile(pathtotheHTML, render(teamLog), utf-8)
 
 
 // After the user has input all employees desired, call the `render` function (required
