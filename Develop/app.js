@@ -9,10 +9,76 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { type } = require("os");
 
-
+let teamLog = []
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+function teamQuery() {
+      inquirer.prompt([
+            {
+                  name: 'name',
+                  type: 'input',
+                  message: 'Please give me your name'
+            },
+            {
+                  name: 'id',
+                  type: 'input',
+                  message: 'Please create an ID number'
+      
+            },
+            {
+                  name: 'email',
+                  type: 'input',
+                  message: 'What is your Email?'
+      
+            },
+            {
+                  name: 'role',
+                  type: 'list',
+                  message: 'What type of role you have?',
+                  choices: ['Manager', 'Intern', 'Engineer']
+            },
+      ]).then(answers => {
+            teamLog.push(answers)
+            console.log(teamLog)
+            if (answers.role === 'Manager') {
+                  inquirer.prompt({
+                        name: 'officeNumber',
+                        type: 'input',
+                        message: 'What is your office number?'
+                  }).then(answers => {
+
+                  })
+            }
+            if (answers.role === 'Intern') {
+                  inquirer.prompt({
+                        name: 'school',
+                        type: 'input',
+                        message: 'What is your School Name?'
+                  })
+            }
+            if (answers.role === 'Engineer') {
+                  inquirer.prompt({
+                        name: 'officeNumber',
+                        type: 'input',
+                        message: 'What is your office number?'
+                  })
+            }
+      })
+};
+
+function moreTeam() {
+      if (teamLog.length <= 1) {
+            prompt('You need to add another team member');
+            return teamQuery();
+      }
+};
+
+teamQuery();
+moreTeam();
+
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
