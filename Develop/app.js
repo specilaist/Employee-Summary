@@ -1,6 +1,6 @@
-const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
@@ -16,16 +16,11 @@ let teamLog = []
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 function teamQuery() {
-      moreTeam = () => {
-            if (answers.continue !== true) {
-                  teamQuery()
-            }
-            if (answers.continue === true) {
-                  buildTeam = () => {
-                        const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
-                  };
-            }
-      }
+      //       if (answers.continue === true) {
+
+      //             };
+      //       }
+      // }
       inquirer.prompt([
             {
                   name: 'name',
@@ -47,63 +42,106 @@ function teamQuery() {
             {
                   name: 'role',
                   type: 'list',
-                  message: 'What type of role you have?',
+                  message: 'What type of role do you have?',
                   choices: ['Manager', 'Intern', 'Engineer']
-            },
-            {
-                  name: 'continue',
-                  type: 'confirm',
-                  message: 'Are you done?',
-                  }
+            }
       ]).then(answers => {
             console.log(answers)
             if (answers.role === 'Manager') {
-                  inquirer.prompt({
-                        name: 'officeNumber',
-                        type: 'input',
-                        message: 'What is your office number?'
-                  }).then(role => {
-                        console.log(role)
-                        answers.officeNumber = role.officeNumber
-                        const manager = new Manager(answers)
+                  inquirer.prompt([
+                        {
+                              name: 'officeNumber',
+                              type: 'input',
+                              message: 'What is your office number?'
+                        },
+                        {
+                              name: 'continue',
+                              type: 'confirm',
+                              message: 'Are you done inputting employees?'
+                        }
+                  ]).then(role => {
+                        answers.officeNumber = role.officeNumber;
+                        const manager = new Manager(answers.name, answers.id, answers.email, role.officeNumber);
+                        console.log(manager);
                         teamLog.push(manager)
-                        moreTeam(manager)
-                                         
+                        // moreTeam(manager)
+                        const result = render(teamLog)
+                        fs.writeFileSync('employees.html', result)
+                        if (role.continue === false) {
+                              console.log('Please enter the new employee:')
+                              teamQuery()
+                        } else {
+                              console.log('This is your New Team', teamLog)
+                              render(teamLog)
+                              buildTeam = () => {
+                                    const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                              }   
+                        }          
                   })
             }
             if (answers.role === 'Intern') {
-                  inquirer.prompt({
-                        name: 'school',
-                        type: 'input',
-                        message: 'What is your School Name?'
-                  }).then(role => {
-                        console.log(role)
+                  inquirer.prompt([
+                        {
+                              name: 'school',
+                              type: 'input',
+                              message: 'What is your School Name?'
+                        },
+                        {
+                              name: 'continue',
+                              type: 'confirm',
+                              message: 'Are you done inputting employees?'
+                        }
+                  ]).then(role => {
                         answers.school = role.school
-                        const intern = new Intern(answers)
+                        const intern = new Intern(answers.name, answers.id, answers.email, role.school)
                         teamLog.push(intern)
-                        moreTeam(intern)               
+                        if (role.continue === false) {
+                              console.log('Please enter the new employee:')
+                              teamQuery()
+                        } else {
+                              console.log('This is your New Team', teamLog)
+                              render(teamLog)
+                              buildTeam = () => {
+                                    const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                              }
+                        }                      
                   })
             }
             if (answers.role === 'Engineer') {
-                  inquirer.prompt({
-                        name: 'gitHub',
-                        type: 'input',
-                        message: 'What is your GitHub Account?'
-                  }).then(role => {
+                  inquirer.prompt([
+                        {
+                              name: 'gitHub',
+                              type: 'input',
+                              message: 'What is your GitHub Account?'
+                        },
+                        {
+                              name: 'continue',
+                              type: 'confirm',
+                              message: 'Are you done inputting employees?'
+                        }
+                  ]).then(role => {
                         console.log(role)
                         answers.gitHub = role.gitHub
-                        const engineer = new Engineer(answers)
+                        const engineer = new Engineer(answers.name, answers.id, answers.email, role.gitHub)
                         teamLog.push(engineer)
-                        moreTeam(engineer)
-                                         
+                        if (role.continue === false) {
+                              console.log('Please enter the new employee:')
+                              teamQuery()
+                        } else {
+                              console.log('This is your New Team', teamLog)
+                              render(teamLog)
+                              buildTeam = () => {
+                                    const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                              }
+                        }                     
                   })
+                        
             }
-            
       });
-    
 };
 
 teamQuery()
+
 
 
 
