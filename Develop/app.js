@@ -72,10 +72,10 @@ function teamQuery() {
                               teamQuery()
                         } else {
                               console.log('This is your New Team', teamLog)
-                              render(teamLog)
                               buildTeam = () => {
-                                    const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
-                              }   
+                                    fs.writeFileSync(outputPath, render(teamLog), "utf-8")
+                              }
+                              buildTeam();
                         }          
                   })
             }
@@ -95,15 +95,16 @@ function teamQuery() {
                         answers.school = role.school
                         const intern = new Intern(answers.name, answers.id, answers.email, role.school)
                         teamLog.push(intern)
+                        const result = render(teamLog)
                         if (role.continue === false) {
                               console.log('Please enter the new employee:')
                               teamQuery()
                         } else {
                               console.log('This is your New Team', teamLog)
-                              render(teamLog)
                               buildTeam = () => {
-                                    const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                                    fs.writeFileSync(outputPath, render(teamLog), "utf-8")
                               }
+                              buildTeam();
                         }                      
                   })
             }
@@ -129,10 +130,10 @@ function teamQuery() {
                               teamQuery()
                         } else {
                               console.log('This is your New Team', teamLog)
-                              render(teamLog)
                               buildTeam = () => {
-                                    const writeFile = fs.writeFile(outputPath, render(teamLog), utf-8)
+                                    fs.writeFileSync(outputPath, render(teamLog), "utf-8")
                               }
+                              buildTeam();
                         }                     
                   })
                         

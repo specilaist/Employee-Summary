@@ -11,10 +11,14 @@ This app uses the require function to add "Inquirer" and "Jest" into our app so 
       * Each object is a question that allows us to complete the new README.
 * Jest allows us to set tests that look at the uniformity and functionality of the code.
       * This is what we use to make sure all the keys are correct for the various classes.
+* I was able to render the page after completing the inquirer by running the render funtion
+
+## Items For Later
+* I would like to make it so the webpage opens after the Node CLI is finished running
 
 ## Visuals
 
-![Video of App](./assets/profile.mov)
+![Video of App](./assets/employeeAppVideo.gif)
 
 ## Links
 
