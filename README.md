@@ -18,7 +18,7 @@ This app uses the require function to add "Inquirer" and "Jest" into our app so 
 
 ## Visuals
 
-![Video of App](/assets/employeeAppVideo.gif)
+![Video of App](./assets/employeeAppVideo.gif)
 
 ## Links
 
