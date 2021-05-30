@@ -22,5 +22,7 @@ This app uses the require function to add "Inquirer" and "Jest" into our app so 
 
 ## Links
 
-The github repo: https://specilaist.github.io/Employee-Summary/
+Github Link: https://specilaist.github.io/Employee-Summary/
+Website Link: 
+
 
