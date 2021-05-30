@@ -1,8 +1,8 @@
 # Unit 10 OOP Homework: Template Engine - Employee Summary
 
-## Creation
+## User Story
 
-This app allows creators to generate a array of different employees by simply answering the questions given in node. 
+Our users would like to create employees for a team and then have the entire team displayed on the screen. This app allows creators to generate a array of different employees by simply answering the questions given in Node. Users will be able to see the the input employees on the screen and with desired value sets.
 
 ## How it Works
 
@@ -18,11 +18,11 @@ This app uses the require function to add "Inquirer" and "Jest" into our app so 
 
 ## Visuals
 
-![Video of App](./assets/employeeAppVideo.gif)
+![Video of App](/assets/employeeAppVideo.gif)
 
 ## Links
 
-Github Link: https://specilaist.github.io/Employee-Summary/
+Github Link: https://github.com/specilaist/Employee-Summary
 Website Link: 
 
 
